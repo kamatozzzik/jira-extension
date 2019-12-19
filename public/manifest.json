@@ -1,0 +1,23 @@
+{
+  "short_name": "JiraEx",
+  "name": "Jira Extension",
+  "version": "1.0",
+  "manifest_version": 2,
+  "background": {
+    "scripts": ["app/background.js"]
+  },
+  "browser_action": {},
+  "content_scripts": [
+    {
+      "matches": [
+        "https://*.atlassian.net/projects/*/issues/*",
+        "https://*.atlassian.net/browse/*",
+        "http://localhost:8080/*"
+      ],
+      "css": ["/static/css/main.css"],
+      "js": ["/static/js/main.js"]
+    }
+  ],
+  "web_accessible_resources": ["/static/css/main.css"],
+  "content_security_policy": "script-src 'self' 'sha256-GgRxrVOKNdB4LrRsVPDSbzvfdV4UqglmviH9GoBJ5jk='; object-src 'self'"
+}
