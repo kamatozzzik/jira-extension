@@ -150,7 +150,6 @@ export class Templates extends React.Component {
             } else result[name] = toRequestModel(issueData[name]);
           }
         }
-        console.log(result);
 
         const createdTicket = await postTicket({ fields: result });
 
@@ -198,9 +197,10 @@ export class Templates extends React.Component {
     this.props.handleRedirect(event, 1);
   };
 
-  componentWillMount() {
+  async componentWillMount() {
     const html = document.querySelector("html");
-
+    const ticketData = await pullTicketData(getCurrentTicket());
+    this.setState({ currentTicket: getCurrentTicket(), ticketData });
     html.addEventListener("click", async e => {
       if (getCurrentTicket() !== this.state.currentTicket) {
         const ticketData = await pullTicketData(getCurrentTicket());
