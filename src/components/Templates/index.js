@@ -20,10 +20,12 @@ const toRequestModel = item => {
     result.key = key;
   }
   if (value) {
-    result.value = value
+    const parsed = value
       .split('"')
       .join("")
       .trim();
+    result.value = parsed;
+    result.accountId = parsed;
   }
   return result;
 };
@@ -150,7 +152,7 @@ export class Templates extends React.Component {
             } else result[name] = toRequestModel(issueData[name]);
           }
         }
-
+        console.log(result);
         const createdTicket = await postTicket({ fields: result });
 
         window.open(`${baseUrl}/browse/${createdTicket.key}`);

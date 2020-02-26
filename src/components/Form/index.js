@@ -41,6 +41,7 @@ export class Form extends React.Component {
       const details = await this.defaultService.getProjectDetails(
         item.value.id
       );
+
       this.setState({ issue, ...details });
     }
   };
@@ -164,6 +165,13 @@ export class Form extends React.Component {
     const fieldService = await this.fieldService.initService();
     const projects = await this.defaultService.getProjects();
     const issue = this.state.issue;
+    let details = {};
+
+    if (issue.project) {
+      details = await this.defaultService.getProjectDetails(
+        issue.project.value.id
+      );
+    }
 
     const currentFields = this.state.isCustom
       ? fieldService.getUserPreferences()
@@ -191,7 +199,8 @@ export class Form extends React.Component {
       fieldMap: fieldService.getAllFieldsMap(),
       preferences: fieldService.getUserPreferences(),
       currentFields,
-      issue
+      issue,
+      ...details
     });
   }
   render() {
